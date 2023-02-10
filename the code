@@ -1,0 +1,43 @@
+byte a[]={B11111100,B01100000,B11011010,B11110010,B01100110,B10110110,B10111110,B11100000,B11111110,B11110110};
+int D1=8,D2=9,D3=10,i=0,j,k;
+long time=0;
+void SEVSEG(int i){
+  j=i/10;
+  k=i/100;
+   digitalWrite(D1,HIGH);
+ digitalWrite(D2,LOW);
+ digitalWrite(D3,LOW);
+ PORTD=a[k%10];
+  delay(16);
+ digitalWrite(D1,LOW);
+ digitalWrite(D2,HIGH);
+ digitalWrite(D3,LOW);
+ PORTD=a[j%10];
+ delay(16);
+ digitalWrite(D1,LOW);
+ digitalWrite(D2,LOW);
+ digitalWrite(D3,HIGH);
+ PORTD=a[i%10];
+ delay(16);
+  
+}
+
+
+void setup() { 
+  DDRD=B11111110;
+  pinMode(8,OUTPUT);
+  pinMode(9,OUTPUT);
+  pinMode(10,OUTPUT);
+  time=millis();
+}
+ 
+void loop() {
+  if(millis() -time >1000){
+   i++;
+    
+    if(i>999){i=0;}
+     time=millis(); 
+  }
+  SEVSEG(i);
+
+}
